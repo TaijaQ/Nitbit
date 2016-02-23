@@ -43,18 +43,19 @@ module.exports = (robot) ->
 
   robot.hear /(badger|mushroom|snake)/i, (res) ->
     annoyed = robot.brain.get('annoyance') or false
+    word = res.match[1]
     unless annoyed
-      res.send "Badger badger badger badger"
+      if word = "badger"
+        res.send "Badger badger badger badger"
+      else if word = "mushroom"
+        res.send "Badger badger badger badger"
+        res.send "Musroom! Mushroom!"
+      else if word = "snake"
+        res.send "Badger badger badger badger"
+        res.send "Musroom! Mushroom!"
+        res.send "Snaaaake, it's a snake!"
 
-  # robot.hear /mushroom/i, (res) ->
-  #   annoyed = robot.brain.get('annoyance') or false
-  #   unless annoyed
-  #     res.send "Mushroom, mushroom!"
-
-  # robot.hear /snake/i, (res) ->
-  #   annoyed = robot.brain.get('annoyance') or false
-  #   unless annoyed
-  #     res.send "Snaake, oo, snaake!"
+    # TODO Posts image of badgers and snake
 
   # Only starts responding when you say you're sorry
 
@@ -66,7 +67,9 @@ module.exports = (robot) ->
     else
       res.send "What are you sorry for?"
 
-  robot.respond /annoyed?/i, (res) ->
+  # Ask about annoyance state
+
+  robot.hear /annoyed?/i, (res) ->
     annoyed = robot.brain.get('annoyance') or false
     if annoyed
       res.send "Take a guess -.-"

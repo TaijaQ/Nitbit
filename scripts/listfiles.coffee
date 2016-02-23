@@ -5,7 +5,7 @@
 #   hubot-slack
 #
 # Configuration:
-#   YOUR_SLACK_TOKEN
+#   YOUR_SLACK_TOKEN 	Your own Slack API token, NOT the bot's API token
 #
 # Commands:
 #	Hubot List [files]
@@ -18,6 +18,8 @@ module.exports = (robot) ->
 	robot.respond /List (.*)/i, (msg) ->
 
 		# query = The API method
+		# Here used for files.list
+		# but could also work with users.list, channels.list etc
 
 		query = msg.match[1] + ".list"
 
@@ -25,17 +27,18 @@ module.exports = (robot) ->
 		token = "?token=" + process.env.YOUR_SLACK_TOKEN
 		pretty = "&pretty=1"
 
-		# Create the url for the HTTP call with the right method and token
-		# Post the url so it can be debugged
+		# Creates the url for the HTTP call with the right method and token
 
 		url = base + query + token + pretty
+
+		# Posts the url for easy debugging
+
 		msg.send "Url: " + url
 
-		# Basic HTTP Request for a list of the files
+		# Basic HTTP request
 
 		msg.http(url)
 		.get() (err, res, body) ->
-	    	# Error checking code
 
 	    	# Res is node.js's http.ServerResponse
 	    	# Methods:
@@ -43,7 +46,7 @@ module.exports = (robot) ->
 	    	# 		res.getHeader
 
 	    	if res.statusCode isnt 200
-	    		res.send "Something went wrong"
+	    		msg.send "Something went wrong"
 
 	    	# Parse the JSON
 	    	data = JSON.parse body
