@@ -36,6 +36,7 @@ module.exports = (robot) ->
       else if warnings = 3
         res.send "That's it, I'm not talking to you."
         robot.brain.set 'annoyance', true
+        robot.brain.set 'warningCount', 0
 
 # Checks annoyance before everything
 # If true, doesn't respond at all
