@@ -56,23 +56,27 @@ module.exports = (robot) ->
         res.send "Musroom! Mushroom!"
         res.send "Snaaaake, it's a snake!"
 
-    # TODO Posts image of badgers and snake
+    # TODO Post image of badgers and snake
 
   # Only starts responding when you say you're sorry
 
   robot.respond /I'm sorry/i, (res) ->
+    warnings = robot.brain.get('warningCount') * 1 or 0
     annoyed = robot.brain.get('annoyance') or false
     if annoyed
       res.send "... Fine, I forgive you."
       robot.brain.set 'annoyance', false
     else
-      res.send "What are you sorry for?"
+      res.send "Hey, we're cool"
+      robot.brain.set 'warningCount', 0
 
   # Ask about annoyance state
 
   robot.hear /annoyed?/i, (res) ->
+    warnings = robot.brain.get('warningCount') * 1 or 0
     annoyed = robot.brain.get('annoyance') or false
     if annoyed
       res.send "Take a guess -.-"
     else
       res.send "No, but at this rate.."
+      robot.brain.set 'warningCount', warnings+1
