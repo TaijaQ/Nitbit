@@ -20,7 +20,8 @@
     "hubot": "~2.18.0",
     "hubot-slack": "~3.4.2",
     "hubot-sentimental": "~1.0.7",
-    "hubot-plusplus": "~1.2.3"
+    "hubot-plusplus": "~1.2.3",
+    "hubot-trello": "~0.1.1"
   },
   "engines": {
     "node": "0.10.x"

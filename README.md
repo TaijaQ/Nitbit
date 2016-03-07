@@ -1,14 +1,50 @@
 # Nitbit
 
-*Nitbit*, the nitpicking nitwit bot, is my personal assistant based on the Hubot framework. It runs on a dedicated Rasperry Pi Model B+ and is used with a Slack adapter.
+**Nitbit**, the nitpicking nitwit, is my personal assistant and chat bot. It's built on the Hubot framework and deployed on a dedicated `Rasperry Pi Model B+`. The protype's main interface is Slack and it will have audio output and a small LCD screen.
+
+See the [Wiki][Wiki] for further documentation on development and below for [deployment instructions](#Hubot setup).
+
+## Features
+
+- Responsive AI
+    + Changes tone based on your short- and long-term behaviour
+    + Different states, such as annoyance
+- Expandable vocabularity
+    + Learns new words and phrases
+    + Creative cursing
+- Information handling
+    + Keeps track of your work
+    + Categorization of concepts
+    + Project management
+
+### Architecture
+
+- Raspberry Pi Model B+
+    + Raspbian
+    + Hubot framework
+- Web interfaces
+    + Slack
+        * Sublime
+        * IFTTT
+        * Trello
+        * Evernote
+        * Other integrations
+    + Speech-to-text
+- Output
+    +  LCD screen
+    +  Toy dog
+        * Text-to-speech audio
+        * Movement
+
 
 ## Hubot setup
 
 To create your own Hubot instance, you need node.js and npm. You also need to install the listed [dependencies](#Dependencies) below.
 
-Install the Hubot generator:
+Install the Hubot generator and create your instance:
 
     npm install -g yo generator-hubot
+    yo hubot
 
 Set the [environment variables](#Configuration) and run:
 
@@ -17,19 +53,19 @@ Set the [environment variables](#Configuration) and run:
 ### Dependencies
 
 - hubot-slack
-- hubot-sentimental
-- hubot-plusplus
 - hubot-scripts
-- hubot-google-translate
-- hubot-google-images
-- hubot-help
-- hubot-redis-brain
-- hubot-shipit
-- hubot-pugme
+- Vital external scripts (see package.json for full list):
+    + hubot-sentimental
+    + hubot-plusplus
+    + hubot-redis-brain
+    + hubot-trello
+    + hubot-google-translate
+    + hubot-google-images
+
 
 ### Configuration
 
-Environment variables:
+Necessary environment variables:
 
 | Variable          | Description                 |
 | ----------------- | --------------------------- |
@@ -37,57 +73,41 @@ Environment variables:
 | YOUR_SLACK_TOKEN  | Your Slack API token        |
 
 
-## Architecture
+## Scripts
 
-### Hardware
+### Commands
 
-* Raspberry Pi Model B+
-* Output
-    + Old Nokia LCD screen
-    + Toy dog (audio)
+**List Slack files**
 
-
-## Functions
-
-### My scripts
-
-**Annoyance.coffee**
-
-    hubot The cake is a lie
-
-Annoyance is a state where the bot will stop responding to certain things or behave differently. It keeps count of the times you repeat certain old memes and tells you when it gets annoyed.
-
-Query the state of annoyance:
-
-    hubot annoyed?
-
-Ask for forgiveness:
-
-    hubot I'm sorry
-
-If annoyed, forgives you. If not, removes any warnings.
-
-**Listfiles.coffee**
+Counts all files and snippets uploaded to Slack and lists them in a neat form, with titles, filenames and character and line counts. Also adds up the total line count.
 
     hubot List files
 
-Makes an API request using the files.list method and lists all the files that have been uploaded to slack in a neat form, with titles, filenames and character and line count. Also tells you the file count and total code line count.
 
-**mynameis.coffee**
+### Functions
 
-    hubot My name is [name]
+**Annoyance**
+
+Nitbit keeps count of the times you repeat certain old memes and tells you when it gets annoyed. When annoyed, Nitbit will stop responding to most things.
+
+    hubot The cake is a lie
+
+To remove annoyance or warnings, apologize:
+
+    hubot I'm sorry
+
+To query annoyance state:
+
+    hubot annoyed?
+
+**Names**
+
+Responds to names it knows or doesn'tknow.
+
+    hubot My name is <name>
 
 
-### Other scripts
+### External scripts
 
-- coinflip.coffee
-- xkcd.coffee
-- dayssince.coffee
-
-
-## TODO
-
-[ ] Basic responses
-[ ] Cursing
-[ ] Points system
-[ ] Automatic audio output
+- Sentimental adapter
+- Hubot-plusplus
