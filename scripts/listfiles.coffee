@@ -15,7 +15,7 @@
 
 module.exports = (robot) ->
 
-	robot.respond /List (.*)/i, (msg) ->
+	robot.respond /List (files)/i, (msg) ->
 
 		# query = The API method
 		# Here used for files.list
