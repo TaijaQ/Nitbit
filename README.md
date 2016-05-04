@@ -2,7 +2,7 @@
 
 **Nitbit**, the nitpicking nitwit, is my personal assistant and chat bot. It's built on the Hubot framework and deployed on a dedicated `Rasperry Pi Model B+`. The protype's main interface is Slack and it will have audio output and a small LCD screen.
 
-See the [Wiki][Wiki] for further documentation on development and below for [deployment instructions](#Hubot setup).
+See the [Wiki](https://github.com/TaijaQ/Nitbit/wiki) for further documentation on development and below for [deployment instructions](#Hubot setup).
 
 ## Features
 
@@ -12,12 +12,12 @@ See the [Wiki][Wiki] for further documentation on development and below for [dep
 - Expandable vocabularity
     + Learns new words and phrases
     + Creative cursing
-- Information handling
-    + Keeps track of your work
+- Information management
     + Categorization of concepts
-    + Project management
+    + Project and task management
+    + Logging
 
-### Architecture
+#### Architecture
 
 - Raspberry Pi Model B+
     + Raspbian
@@ -50,7 +50,7 @@ Set the [environment variables](#Configuration) and run:
 
     ./bin/hubot --adapter=slack
 
-### Dependencies
+#### Dependencies
 
 - hubot-slack
 - hubot-scripts
@@ -63,7 +63,7 @@ Set the [environment variables](#Configuration) and run:
     + hubot-google-images
 
 
-### Configuration
+#### Configuration
 
 Necessary environment variables:
 
@@ -73,41 +73,41 @@ Necessary environment variables:
 | YOUR_SLACK_TOKEN  | Your Slack API token        |
 
 
-## Scripts
+## Functions
 
-### Commands
+For more information about the scripts, see the [Scripts](https://github.com/TaijaQ/Nitbit/wiki/Scripts)-wikipage.
 
 **List Slack files**
 
-Counts all files and snippets uploaded to Slack and lists them in a neat form, with titles, filenames and character and line counts. Also adds up the total line count.
+Counts all files and snippets uploaded to Slack and lists them in a neat form. Also adds up the total line count.
 
     hubot List files
 
-
-### Functions
-
 **Annoyance**
 
-Nitbit keeps count of the times you repeat certain old memes and tells you when it gets annoyed. When annoyed, Nitbit will stop responding to most things.
+Nitbit can get annoyed if memes are repeated. When annoyed, Nitbit will stop responding to most things until you apologise.
 
-    hubot The cake is a lie
-
-To remove annoyance or warnings, apologize:
-
+    hubot Hey, the cake is a lie
     hubot I'm sorry
 
-To query annoyance state:
+To query annoyance state (repeated queries also rack up warnings):
 
-    hubot annoyed?
+    hubot annoyed|annoyance
+
+**Cursing**
+
+While in curse mode, calling Nitbit names causes it to memorize them.
+
+    hubot curseout|curseoff|cursebattle on|off
+    hubot you are (a|an) <insult>
+
+You can list the insults or query a word's count, or the amount of sifferent words if no word is specified.
+
+    hubot list insults
+    hubot insult (<insult>) count
 
 **Names**
 
-Responds to names it knows or doesn'tknow.
+Responds to names it knows or doesn't know.
 
     hubot My name is <name>
-
-
-### External scripts
-
-- Sentimental adapter
-- Hubot-plusplus
